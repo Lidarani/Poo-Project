@@ -6,9 +6,7 @@
 #include<vector>
 #include<cstring>
 #include<fstream>
-#include<thread>
-#include<chrono>
-#include <Rlutil.h>
+#include<rlutil.h>
 
 std::ofstream fout("debug.txt");
 
@@ -50,7 +48,7 @@ public:
 
 	Card operator=(const Card& c)
 	{
-		if(this == &c)
+		if (this == &c)
 		{
 			return *this;
 		}
@@ -306,7 +304,7 @@ public:
 				std::cout << "\nYou lost " << bet << "\n\n";
 				human.setMoney(human.getMoney() - bet);
 
-				std::cin >> d; //getch any char to continue
+				rlutil::msleep(3000); //getch any char to continue
 				break;
 			}
 
@@ -315,6 +313,8 @@ public:
 				std::cout << "\nBLACKJACK!\n";
 				human.setMoney(human.getMoney() + bet * 3 / 2);
 				dealer.setMoney(human.getMoney() - bet * 3 / 2);
+
+				rlutil::msleep(3000);
 				break;
 			}
 
@@ -360,6 +360,7 @@ public:
 						std::cout << "Push! It is a tie! \n";
 					}
 
+					rlutil::msleep(3000);
 					break;
 				}
 			}
@@ -400,60 +401,59 @@ public:
 	{
 		human.setMoney(5000);
 		dealer.setMoney(1000000);
-		int cond = 2, retry = 1;
+		int cond = 2;
 
-		rlutil::cls();
-		while (retry)
-			while (true)
+		while (true)
+		{
+			rlutil::cls();
+			std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
+
+
+			if (cond == -1)
+				std::cout << " Please provide a valid number!\n";
+			else if (cond == 0)
+				std::cout << " Not enough money!\n";
+			if (cond == 1)
 			{
+				Round r(dealer, human, bet);
+
 				if (human.getMoney() == 0)
 				{
-					while (true)
-					{
-						rlutil::cls();
-						std::cout << "You lost all your money! Want to try again? y/n";
-						char x;
-						std::cin >> x;
-						if (x == 'n')
-						{
-							retry = 0;
-							break;
-						}
-						if (x == 'y')
-							break;
-					}
+					rlutil::cls();
+					std::cout << "You lost all your money! Want to try again? y/n\n";
+					break;
 				}
 
-				rlutil::cls();
-
-				std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
-
-				if (cond == -1)
-					std::cout << " Please provide a valid number!\n";
-				else if (cond == 0)
-					std::cout << " Not enough money!\n";
-
-				std::cout << " How much do you bet?\n Bet:";
-
-				if (cond == 1)
-					Round r(dealer, human, bet);
-				
-			cond = getBet();
+				else
+				{
+					rlutil::cls();
+					std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
+				}
 			}
+
+			std::cout << " How much do you bet?\n>";
+
+			cond = getBet();
+		}
 	}
 };
 
 int main()
 {
-	char d;
 	Game g;
 	while (true)
 	{
+		char d;
 		std::cin >> d;
 		if (d == 'y')
 			Game g2;
-		if (d == 'n')
+		else if (d == 'n')
 			break;
+		else
+		{
+			rlutil::cls();
+			std::cout << "You lost all your money! Want to try again? y/n\n ";
+		}
 	}
 
 	return 0;
