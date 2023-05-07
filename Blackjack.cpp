@@ -451,7 +451,7 @@ int main()
 	{
 		std::cin >> d;
 		if (d == 'y')
-			Game g;
+			Game g2;
 		if (d == 'n')
 			break;
 	}
