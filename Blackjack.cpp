@@ -8,11 +8,11 @@
 #include<fstream>
 #include<thread>
 #include<chrono>
-#include<Rlutil.h>
+#include <Rlutil.h>
 
 std::ofstream fout("debug.txt");
 
-std::string suites[] = {"\u2661", "\u2662", "\u2667", "\u2664"}; // for cout, suite: ♥ - 0, ♦ - 1, ♣ - 2, ♠ - 3;
+//std::string suites[] = {"\u2661", "\u2662", "\u2667", "\u2664"}; // for cout, suite: ♥ - 0, ♦ - 1, ♣ - 2, ♠ - 3;
 
 void printVector(std::vector<int> v)
 {
@@ -34,7 +34,7 @@ public:
 		value = 0;
 	}
 
-	Card(const int card)
+	explicit Card(const int card)
 	{
 		suite = card / 13;
 		if (suite > 3)
@@ -50,7 +50,13 @@ public:
 
 	Card operator=(const Card& c)
 	{
-		return c;
+		if(this == &c)
+		{
+			return *this;
+		}
+		suite = c.suite;
+		value = c.value;
+		return *this;
 	}
 
 	char getValue()
@@ -241,14 +247,14 @@ class Round
 	void shuffleDeck()
 	{
 		std::vector<int> num;
-		int n = 52, aux;
+		int n = 52;
 		for (int i = 1; i <= 52; i++)
 			num.push_back(i);
 
 		srand(time(0));
 		for (; n > 0; n--)
 		{
-			aux = rand() % n;
+			int aux = rand() % n;
 			deck.push_back(num[aux]);
 			std::swap(num[aux], num[n - 1]);
 			num.pop_back();
