@@ -5,21 +5,9 @@
 #include<string>
 #include<vector>
 #include<cstring>
-#include<fstream>
 #include<rlutil.h>
 
-std::ofstream fout("debug.txt");
-
 //std::string suites[] = {"\u2661", "\u2662", "\u2667", "\u2664"}; // for cout, suite: ♥ - 0, ♦ - 1, ♣ - 2, ♠ - 3;
-
-void printVector(std::vector<int> v)
-{
-	int n = v.size();
-	fout << n << '\n';
-	for (int i = 0; i < n; i++)
-		fout << v[i] << ' ';
-	fout << '\n';
-}
 
 class Card
 {
@@ -258,14 +246,12 @@ class Round
 			num.pop_back();
 		}
 		deck.push_back(0);
-		printVector(deck);
 	}
 
 public:
 	int getCard()
 	{
 		int x = deck.back();
-		fout << x << '\n';
 		deck.pop_back();
 		return x;
 	}
@@ -282,14 +268,10 @@ public:
 
 		shuffleDeck();
 
-		fout << "dealer ";
 		dealer.drawCard(getCard());
-		fout << "human ";
 		human.drawCard(getCard());
 
-		fout << "dealer ";
 		dealer.drawCard(getCard());
-		fout << "human ";
 		human.drawCard(getCard());
 		bool drawn = false;
 
@@ -297,7 +279,6 @@ public:
 		{
 			rlutil::cls();
 			std::cout << "Dealer: " << dealer << '\n' << "Player: " << human;
-			char d;
 
 			if (human.getSum() > 21)
 			{
@@ -320,6 +301,7 @@ public:
 
 			else
 			{
+				char d;
 				std::cout << "\n(h)it or (s)tand\n";
 				std::cin >> d;
 
