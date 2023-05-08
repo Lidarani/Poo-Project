@@ -302,7 +302,7 @@ public:
 
 			else
 			{
-				char d;
+				char d = '-';
 				std::cout << "\n(h)it or (s)tand\n";
 				std::cin >> d;
 
