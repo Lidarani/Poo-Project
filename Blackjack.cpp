@@ -366,7 +366,7 @@ public:
 	int getBet()
 	{
 		bet = 0;
-		char s[100];
+		char s[100] = "";
 
 		std::cin >> s;
 
@@ -431,7 +431,7 @@ public:
 				}
 			}
 
-			std::cout << " How much do you bet?\n>";
+			std::cout << " How much do you bet?\n >";
 
 			cond = getBet();
 			att++;
@@ -445,7 +445,7 @@ int main()
 	Game g;
 	while (true)
 	{
-		char d;
+		char d = '-';
 		std::cin >> d;
 
 		if(attempt == 10)
