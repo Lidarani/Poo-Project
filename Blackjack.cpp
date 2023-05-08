@@ -385,6 +385,11 @@ public:
 
 	}
 
+	void setBet(int x)
+	{	
+		bet = x;
+	}
+
 	Game()
 	{
 		human.setMoney(5000);
@@ -398,7 +403,10 @@ public:
 			std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
 
 			if(att == 25)
-				break;
+			{
+				setBet(human.getMoney());
+				cond = 1;
+			}
 
 			if (cond == -1)
 				std::cout << " Please provide a valid number!\n";
