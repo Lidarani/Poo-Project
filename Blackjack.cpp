@@ -274,6 +274,7 @@ public:
 		dealer.drawCard(getCard());
 		human.drawCard(getCard());
 		bool drawn = false;
+		int attempts = 0;
 
 		while (true)
 		{
@@ -304,6 +305,9 @@ public:
 				char d;
 				std::cout << "\n(h)it or (s)tand\n";
 				std::cin >> d;
+
+				if (attempts == 10)
+					d = 's';
 
 				if (d == 'h')
 				{
@@ -345,6 +349,8 @@ public:
 					rlutil::msleep(3000);
 					break;
 				}
+				else
+					attempts++;
 			}
 		}
 	}
@@ -384,12 +390,15 @@ public:
 		human.setMoney(5000);
 		dealer.setMoney(1000000);
 		int cond = 2;
+		int att = 0;
 
 		while (true)
 		{
 			rlutil::cls();
 			std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
 
+			if(att == 25)
+				break;
 
 			if (cond == -1)
 				std::cout << " Please provide a valid number!\n";
@@ -398,6 +407,7 @@ public:
 			if (cond == 1)
 			{
 				Round r(dealer, human, bet);
+				att = 0;
 
 				if (human.getMoney() == 0)
 				{
@@ -416,25 +426,35 @@ public:
 			std::cout << " How much do you bet?\n>";
 
 			cond = getBet();
+			att++;
 		}
 	}
 };
 
 int main()
 {
+	int attempt = 0;
 	Game g;
 	while (true)
 	{
 		char d;
 		std::cin >> d;
+
+		if(attempt == 10)
+			d = 'n';
+
 		if (d == 'y')
+		{
 			Game g2;
+			attempt = 0;
+		}
 		else if (d == 'n')
 			break;
 		else
 		{
 			rlutil::cls();
-			std::cout << "You lost all your money! Want to try again? y/n\n ";
+			std::cout << " You lost all your money! Want to try again? y/n\n ";
+			attempt++;
 		}
 	}
 
