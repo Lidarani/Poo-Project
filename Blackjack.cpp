@@ -237,7 +237,7 @@ class Round
 		for (int i = 1; i <= 52; i++)
 			num.push_back(i);
 
-		srand(time(0));
+		srand(42);
 		for (; n > 0; n--)
 		{
 			int aux = rand() % n;
