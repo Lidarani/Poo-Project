@@ -449,7 +449,7 @@ int main()
 		std::cin >> d;
 
 		if(attempt == 10)
-			d = 'y';
+			d = 'n';
 
 		if (d == 'y')
 		{
