@@ -1,4 +1,5 @@
 #include<Game.h>
+#include<cstring>
 
 int Game::readBet()
 {
