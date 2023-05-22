@@ -80,7 +80,13 @@ endfunction()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} Blackjack.cpp)
+add_executable(${PROJECT_NAME} Blackjack.cpp 
+ext/include/Game.cpp
+ext/include/Round.cpp
+ext/include/Dealer.cpp
+ext/include/Human.cpp
+ext/include/Player.cpp
+ext/include/Card.cpp) 
 
 ###############################################################################
 
@@ -113,7 +119,7 @@ set_custom_stdlib_and_sanitizers(${PROJECT_NAME} true)
 ###############################################################################
 
 # use SYSTEM so clang-tidy does not report warnings from these directories
-target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/include ext/include/rlutil)
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ext/include/)
 #target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 #target_link_directories(${PROJECT_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 #target_link_libraries(${PROJECT_NAME} <SomeLib>)

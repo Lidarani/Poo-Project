@@ -58,7 +58,7 @@
 	RLUTIL_INLINE void locate(int x, int y); // Forward declare for C to avoid warnings
 #endif // __cplusplus
 
-int runs_on_ci() {
+RLUTIL_INLINE int runs_on_ci() {
 	return
 	#ifdef __cplusplus
 	std::getenv("GITHUB_ACTIONS") != nullptr;
@@ -681,8 +681,8 @@ RLUTIL_INLINE void msleep(unsigned int ms) {
 #else
 	// https://stackoverflow.com/a/55860234
 	struct timespec ts;
-	ts.tv_sec = ms / 1000000ul;            // whole seconds
-	ts.tv_nsec = (ms % 1000000ul) * 1000;  // remainder, in nanoseconds
+	ts.tv_sec = ms / 1000000000ul;            // whole seconds
+	ts.tv_nsec = (ms % 1000000000ul) * 1000000;  // remainder, in nanoseconds
 	nanosleep(&ts, NULL);
 
 	// usleep gives warnings in C code; seems to be deprecated/legacy

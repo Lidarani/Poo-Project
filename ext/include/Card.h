@@ -1,3 +1,6 @@
+#ifndef CARD_H
+#define CARD_H
+
 #include<iostream>
 
 class Card
@@ -5,62 +8,24 @@ class Card
 	int suite, value;
 
 public:
-	Card()
-	{
-		suite = 0;
-		value = 0;
-	}
+	Card();
 
-	explicit Card(const int card)
-	{
-		suite = card / 13;
-		if (suite > 3)
-			suite = 3;
-		value = card == 0 ? 0 : card % 13 + 1;
-	}
+	explicit Card(const int card);
 
-	Card(const Card& c)
-	{
-		suite = c.suite;
-		value = c.value;
-	}
+	Card(const Card& c);
 
-	Card operator=(const Card& c)
-	{
-		if (this == &c)
-		{
-			return *this;
-		}
-		suite = c.suite;
-		value = c.value;
-		return *this;
-	}
+	Card operator=(const Card& c);
 
-	char getValue()
-	{
-		if (value == 0)
-			return '0';
-		if (value == 1)
-			return 'A';
-		if (value < 10)
-			return value + '0';
-		if (value == 10)
-			return '~';
-		if (value == 11)
-			return 'J';
-		return value == 12 ? 'Q' : 'K';
-	}
+	char getValue();
 
-	int getSuite() {return suite;}
+	int getSuite();
 
-	void setValue(int v) {value = v;}
+	void setValue(int v);
 
-	void setSuite(int s) {suite = s;}
+	void setSuite(int s);
 
-	friend std::ostream& operator<<(std::ostream& os, const Card& c)
-	{
-		std::cout << c.suite << ' ' << c.value << '\n';
-		return os;
-	}
+	friend std::ostream& operator<<(std::ostream& os, const Card& c);
 	
 };
+
+#endif
