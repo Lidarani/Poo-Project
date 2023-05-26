@@ -1,76 +1,93 @@
 #include<Game.h>
-#include<cstring>
-
-int Game::readBet()
-{
-	bet = 0;
-	char s[100] = "";
-
-	std::cin >> s;
-
-	int len = strlen(s);
-	for (int i = 0; i < len; i++)
-		if (!isdigit(s[i]))
-			return -1;
-		else
-			bet = bet * 10 + s[i] - '0';
-
-	if (bet <= human.getMoney())
-		return 1;
-
-	bet = 0;
-	return 0;
-
-}
-
-void Game::setBet(int x)
-{
-	bet = x;
-}
+#include<string>
 
 Game::Game()
 {
-	human.setMoney(5000);
-	int cond = 2;
-	int att = 0;
+	r.resetRound();
+	outRules();
+}
 
-	while (true)
+void Game::outRules()
+{
+	rlutil::cls();
+	std::cout << " Rules:\n"
+	          << "Try to get as close to 21 without going over.\n"
+	          << "Kings, Queens, and Jacks are worth 10 points.\n"
+	          << "Aces are worth 1 or 11 points.\n"
+	          << "Cards 2 throug 10 are worth their face value\n"
+	          << "(H)it to take another card.\n"
+	          << "(S)tand to stop taking cards\n"
+	          << "In case of a tie, the bet is returned to the player.\n"
+	          << "The dealer stops hitting at 17.\n\n"
+	          << "Money: " << r.getHMoney() << "\n\n";
+}
+
+void Game::readBet()
+{
+	outRules();
+	bet = 0;
+	std::string s;
+
+	for (short i = 0; i < 10; i++)
 	{
-		rlutil::cls();
-		std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
+		std::cout << "How much you want to bet?\n >";
+		std::cin >> s;
 
-		if (att == 25)
+		try
 		{
-			setBet(human.getMoney());
-			cond = 1;
-		}
+			if(s.size() > 9)
+				throw std::out_of_range("Out of range");
 
-		if (cond == -1)
-			std::cout << " Please provide a valid number!\n";
-		else if (cond == 0)
-			std::cout << " Not enough money!\n";
-		if (cond == 1)
-		{
-			Round r(dealer, human, bet);
-			att = 0;
+			size_t pos;
+			int aux;
+			aux = std::stoi(s, &pos);
 
-			if (human.getMoney() == 0)
+			outRules();
+
+			if (pos != s.size())
+				throw std::invalid_argument("Invalid argument");
+
+			if (aux <= r.getHMoney())
 			{
-				rlutil::cls();
-				std::cout << "You lost all your money! Want to try again? y/n\n";
-				break;
+				bet = aux;
+				return;
 			}
-
 			else
 			{
-				rlutil::cls();
-				std::cout << " Rules: \n Try to get as close to 21 without going over. \n Kings, Queens, and Jacks are worth 10 points. \n Aces are worth 1 or 11 points. \n Cards 2 through 10 are worth their face value \n (H)it to take another card. \n (S)tand to stop taking cards \n In case of a tie, the bet is returned to the player. \n The dealer stops hitting at 17.\n\n Money: " << human.getMoney() << "\n\n";
+				std::cout << "Not enough money!\n";
 			}
 		}
 
-		std::cout << " How much do you bet?\n >";
+		catch (std::invalid_argument& arg)
+		{
+			outRules();
+			std::cout << "Not a number, try again maybe?\n";
+		}
 
-		cond = readBet();
-		att++;
+		catch (std::out_of_range& oor)
+		{
+			outRules();
+			std::cout << "You'd wish to have that much money, huh?\n"
+			          << " Cause I sure do.. \n";
+		}
 	}
+}
+
+void Game::playGame()
+{
+	while (!r.getHMoney() == 0)
+	{
+		readBet();
+		r.resetRound();
+		r.playRound(bet);
+	}
+
+	if (r.brokeHuman())
+		return;
+
+}
+
+bool Game::humanIsBroke()
+{
+	return r.brokeHuman();
 }

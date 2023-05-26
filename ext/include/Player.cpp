@@ -3,25 +3,25 @@
 Player::Player()
 {
 	sum = 0;
-	cards = 0;
 	ace = false;
+}
+
+Player::Player(const Player& other)
+{
+	sum = other.sum;
+	for (size_t i = 0; i < other.hand.size(); i++)
+		hand[i] = other.hand[i];
+	ace = other.ace;
 }
 
 int Player::getSum() {return sum;}
 
 void Player::drawCard(int card) //Based on deck from Round
 {
-	int s = card / 13;
-	int v = card == 0 ? 0 : card % 13 + 1;
-	if (card == 52)
-	{
-		s = 0;
-		v = 1;
-	}
-	hand[cards].setSuite(s);
-	hand[cards].setValue(v);
-	cards++;
+	Card aux(card);
+	hand.push_back(aux);
 
+	int v = (card == 0) ? 0 : card % 13 + 1;
 	if (!v);
 	else if (v == 1)
 	{

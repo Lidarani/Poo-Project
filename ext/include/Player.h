@@ -3,22 +3,27 @@
 
 #include<Card.h>
 #include<rlutil/rlutil.h>
+#include<vector>
 
 class Player
 {
 
-public:
-	int cards, sum;
-	Card hand[16];
+protected:
+	int sum;
+	std::vector<Card> hand;
 	bool ace;
+
+public:
 
 	Player();
 
+	Player(const Player& other);
+
 	int getSum();
 
-	virtual void clearHand() = 0;
-
 	void drawCard(int card); //Based on deck from Round
+
+	virtual void clearHand() = 0;
 
 };
 

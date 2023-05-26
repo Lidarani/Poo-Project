@@ -9,10 +9,16 @@ Card::Card()
 
 Card::Card(const int card)
 {
-	suite = card / 13;
-	if (suite > 3)
-		suite = 3;
-	value = card == 0 ? 0 : card % 13 + 1;
+	if (card == 52)
+	{
+		suite = 0;
+		value = 1;
+	}
+	else
+	{
+		suite = card / 13;
+		value = card == 0 ? 0 : card % 13 + 1;
+	}
 }
 
 Card::Card(const Card& c)

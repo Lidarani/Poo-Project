@@ -11,9 +11,15 @@ public:
 
 	Human();
 
+	Human(const Human& other);
+
 	int getMoney();
 
-	void setMoney(const int x);
+	void addMoney(const int x);
+
+	void subMoney(const int x);
+
+	void resetMoney();
 
 	void clearHand();
 

@@ -5,17 +5,20 @@
 
 class Game
 {
-	int bet = 100;
-	Dealer dealer;
-	Human human;
-
+	int bet = 0;
+	Round r;
+	
 public:
 
-	int readBet();
-
-	void setBet(int x);
-
 	Game();
+
+	void outRules();
+
+	void readBet();
+
+	void playGame();
+
+	bool humanIsBroke();
 };
 
 #endif

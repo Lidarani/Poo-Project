@@ -1,44 +1,26 @@
 #include<Dealer.h>
 #include<fstream>
 
-Dealer::Dealer()
+Dealer::Dealer() : Player()
 {
 	hiddenCard = true;
+	clearHand();
 }
 
-void Dealer::openCard(int card) //replace the blank dealer car
+Dealer::Dealer(const Dealer& other) : Player(other), hiddenCard(other.hiddenCard)
 {
-	Card D(card);
-	hand[0] = D;
+
+};
+
+void Dealer::openCard() //show the blank dealer card
+{
 	hiddenCard = false;
-
-	int v = card % 13 + 1;
-	if (v == 1)
-	{
-		ace = true;
-		if (sum <= 10)
-			sum += 11;
-		else sum++;
-	}
-	else if (v <= 10)
-		sum += v;
-	else
-		sum += 10;
-
-	if (sum > 21 && ace)
-	{
-		ace = false;
-		sum -= 10;
-	}
 }
 
 void Dealer::clearHand()
 {
 	hiddenCard = true; // Dealer only
-
-	for(int i = 0; i < cards; i++)
-		hand[i] = Card(0);
-	cards = 0;
+	hand.clear();
 	sum = 0;
 	ace = false;
 }
@@ -76,20 +58,22 @@ std::ostream& operator<<(std::ostream & os, Dealer &d)
 	}
 
 	else
-	{
-		if (d.sum > 21)
-		{
-			std::cout << "Busted!\n";
-		}
-		else
-			std::cout << d.sum << '\n';
+	{	
+		if(d.sum == 21 && d.hand.size() == 2)
+			std::cout << "Blackjack!!\n"; //afisarea total Dealer
 
-		for (int i = 0; i < d.cards; i++)
+		else if (d.sum > 21)
+			std::cout << "Busted!\n"; //afisare total Dealer
+
+		else
+			std::cout << d.sum << '\n'; //afisare total Dealer
+
+		for (size_t i = 0; i < d.hand.size(); i++)
 			std::cout << " ___  ";
 
 		std::cout << '\n';
 
-		for (int i = 0; i < d.cards; i++)
+		for (size_t i = 0; i < d.hand.size(); i++)
 		{
 			char v;
 			v = d.hand[i].getValue();
@@ -102,7 +86,7 @@ std::ostream& operator<<(std::ostream & os, Dealer &d)
 		std::cout << '\n';
 
 
-		for (int i = 0; i < d.cards; i++)
+		for (size_t i = 0; i < d.hand.size(); i++)
 		{
 			char s = d.hand[i].getSuite() + 3;
 			std::cout << "| " << s << " | ";
@@ -110,7 +94,7 @@ std::ostream& operator<<(std::ostream & os, Dealer &d)
 
 		std::cout << '\n';
 
-		for (int i = 0; i < d.cards; i++)
+		for (size_t i = 0; i < d.hand.size(); i++)
 		{
 			char v;
 			v = d.hand[i].getValue();

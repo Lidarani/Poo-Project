@@ -11,7 +11,9 @@ public:
 
 	Dealer();
 
-	void openCard(int card);
+	Dealer(const Dealer& other);
+	
+	void openCard();
 
 	void clearHand();
 

@@ -1,39 +1,47 @@
 #include<Human.h>
 
-Human::Human()
+Human::Human() : Player()
 {
-	money = 5000;
+	resetMoney();
+	clearHand();
 }
+
+Human::Human(const Human& other) : Player(other), money(other.money)
+{
+
+};
 
 int Human::getMoney() {return money;}
 
-void Human::setMoney(const int x) {money = x;}
+void Human::addMoney(const int x) {money += x;}
+
+void Human::subMoney(const int x) {money -= x;}
+
+void Human::resetMoney(){money = 5000;}
 
 void Human::clearHand()
 {
-	for(int i = 0; i < cards; i++)
-		hand[i] = Card(0);
-	cards = 0;
+	hand.clear();
 	sum = 0;
 	ace = false;
 }
 
 
-std::ostream& operator<<(std::ostream & os, Human& p)
+std::ostream& operator<<(std::ostream & os, Human& p) // Human sum + Cards
 {
-	if (p.sum > 21)
+	if (p.sum > 21) //Player card sum or Busted
 	{
 		std::cout << "Busted!\n";
 	}
 	else
 		std::cout << p.sum << '\n';
 
-	for (int i = 0; i < p.cards; i++)
+	for (size_t i = 0; i < p.hand.size(); i++) // top of the cards
 		std::cout << " ___  ";
 
 	std::cout << '\n';
 
-	for (int i = 0; i < p.cards; i++)
+	for (size_t i = 0; i < p.hand.size(); i++) // first row, |v   | |v   |, v = card number
 	{
 		char v;
 		v = p.hand[i].getValue();
@@ -47,7 +55,7 @@ std::ostream& operator<<(std::ostream & os, Human& p)
 	std::cout << '\n';
 
 
-	for (int i = 0; i < p.cards; i++)
+	for (size_t i = 0; i < p.hand.size(); i++) //2nd row, | s  | |  s |, where s = symbol
 	{
 		char s = p.hand[i].getSuite() + 3;
 		std::cout << "| " << s << " | ";
@@ -55,7 +63,7 @@ std::ostream& operator<<(std::ostream & os, Human& p)
 
 	std::cout << '\n';
 
-	for (int i = 0; i < p.cards; i++)
+	for (size_t i = 0; i < p.hand.size(); i++) // last row, |___v| |___v|, v = card number
 	{
 		char v;
 		v = p.hand[i].getValue();		
