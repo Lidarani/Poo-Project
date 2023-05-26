@@ -58,13 +58,13 @@ void Game::readBet()
 			}
 		}
 
-		catch (std::invalid_argument&)
+		catch (std::invalid_argument& arg)
 		{
 			outRules();
 			std::cout << "Not a number, try again maybe?\n";
 		}
 
-		catch (std::out_of_range&)
+		catch (std::out_of_range& oor)
 		{
 			outRules();
 			std::cout << "You'd wish to have that much money, huh?\n"
@@ -75,8 +75,8 @@ void Game::readBet()
 
 void Game::playGame()
 {
-	while (!r.getHMoney())
-	{
+	while (r.getHMoney() != 0)
+	
 		readBet();
 		r.resetRound();
 		r.playRound(bet);
