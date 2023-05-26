@@ -75,7 +75,7 @@ void Game::readBet()
 
 void Game::playGame()
 {
-	while (!r.getHMoney() == 0)
+	while (!r.getHMoney())
 	{
 		readBet();
 		r.resetRound();
