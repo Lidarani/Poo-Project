@@ -10,7 +10,7 @@ Game::Game()
 void Game::outRules()
 {
 	rlutil::cls();
-	std::cout << " Rules:\n"
+	std::wcout << " Rules:\n"
 	          << "Try to get as close to 21 without going over.\n"
 	          << "Kings, Queens, and Jacks are worth 10 points.\n"
 	          << "Aces are worth 1 or 11 points.\n"
@@ -30,7 +30,7 @@ void Game::readBet()
 
 	for (short i = 0; i < 10; i++)
 	{
-		std::cout << "How much you want to bet?\n >";
+		std::wcout << "How much you want to bet?\n >";
 		std::cin >> s;
 
 		try
@@ -54,20 +54,20 @@ void Game::readBet()
 			}
 			else
 			{
-				std::cout << "Not enough money!\n";
+				std::wcout << "Not enough money!\n";
 			}
 		}
 
 		catch (std::invalid_argument&)
 		{
 			outRules();
-			std::cout << "Not a number, try again maybe?\n";
+			std::wcout << "Not a number, try again maybe?\n";
 		}
 
 		catch (std::out_of_range&)
 		{
 			outRules();
-			std::cout << "You'd wish to have that much money, huh?\n"
+			std::wcout << "You'd wish to have that much money, huh?\n"
 			          << " Cause I sure do.. \n";
 		}
 	}

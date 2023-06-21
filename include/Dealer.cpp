@@ -25,7 +25,7 @@ void Dealer::clearHand()
 	ace = false;
 }
 
-std::ostream& operator<<(std::ostream & os, Dealer &d)
+std::wostream& operator<<(std::wostream & wos, Dealer &d)
 {
 	// Daca avem carte ascunsa inseamnca ca dealer-ul are doar 2 carti
 	// Afisam pentru prima ### si apoi pe a 2-a carte
@@ -50,62 +50,62 @@ std::ostream& operator<<(std::ostream & os, Dealer &d)
 			strDown += '_';
 			strDown += v;
 		}
-			std::cout << "???\n"
-			<<" ___   ___\n"
-			<<"|###| |" << strUp << " |\n"
-			<<"|###| | " << s << " |\n"
-			<<"|###| |_" << strDown << "|\n";
+		std::wcout << "???\n"
+		           << " ___   ___\n"
+		           << "|###| |" << convertWString(strUp) << " |\n"
+		           << "|###| | " << s << " |\n"
+		           << "|###| |_" << convertWString(strDown) << "|\n";
 	}
 
 	else
-	{	
-		if(d.sum == 21 && d.hand.size() == 2)
-			std::cout << "Blackjack!!\n"; //afisarea total Dealer
+	{
+		if (d.sum == 21 && d.hand.size() == 2)
+			std::wcout << "Blackjack!!\n"; //afisarea total Dealer
 
 		else if (d.sum > 21)
-			std::cout << "Busted!\n"; //afisare total Dealer
+			std::wcout << "Busted!\n"; //afisare total Dealer
 
 		else
-			std::cout << d.sum << '\n'; //afisare total Dealer
+			std::wcout << d.sum << '\n'; //afisare total Dealer
 
 		for (size_t i = 0; i < d.hand.size(); i++)
-			std::cout << " ___  ";
+			std::wcout << " ___  ";
 
-		std::cout << '\n';
-
-		for (size_t i = 0; i < d.hand.size(); i++)
-		{
-			char v;
-			v = d.hand[i].getValue();
-			if (v == '~')
-				std::cout << "|10 | ";
-			else
-				std::cout << "|" << v << "  | ";
-		}
-
-		std::cout << '\n';
-
-
-		for (size_t i = 0; i < d.hand.size(); i++)
-		{
-			char s = d.hand[i].getSuite() + 3;
-			std::cout << "| " << s << " | ";
-		}
-
-		std::cout << '\n';
+		std::wcout << '\n';
 
 		for (size_t i = 0; i < d.hand.size(); i++)
 		{
 			char v;
 			v = d.hand[i].getValue();
 			if (v == '~')
-				std::cout << "|_10| ";
+				std::wcout << "|10 | ";
 			else
-				std::cout << "|__" << v << "| ";
+				std::wcout << "|" << v << "  | ";
 		}
 
-		std::cout << '\n';
+		std::wcout << '\n';
+
+
+		for (size_t i = 0; i < d.hand.size(); i++)
+		{
+			std::wstring s = d.getSymbol(d.hand[i].getSuite());
+			std::wcout << "| " << s << " | ";
+		}
+
+		std::wcout << '\n';
+
+		for (size_t i = 0; i < d.hand.size(); i++)
+		{
+			char v;
+			v = d.hand[i].getValue();
+			if (v == '~')
+				std::wcout << "|_10| ";
+			else
+				std::wcout << "|__" << v << "| ";
+		}
+
+		std::wcout << '\n';
 
 	}
-	return os;
+	return wos;
 }

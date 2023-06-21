@@ -16,6 +16,12 @@ Player::Player(const Player& other)
 
 int Player::getSum() {return sum;}
 
+std::wstring Player::getSymbol(int suite)
+{
+	std::wstring s = symbols[suite];
+	return s;
+}
+
 void Player::drawCard(int card) //Based on deck from Round
 {
 	Card aux(card);

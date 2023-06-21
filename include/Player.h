@@ -10,8 +10,9 @@ class Player
 
 protected:
 	int sum;
-	std::vector<Card> hand;
 	bool ace;
+	std::vector<Card> hand;
+	std::vector<std::wstring> symbols = {L"\u2660", L"\u2663", L"\u2665", L"\u2666"};
 
 public:
 
@@ -20,6 +21,8 @@ public:
 	Player(const Player& other);
 
 	int getSum();
+
+	std::wstring getSymbol(int suite);
 
 	void drawCard(int card); //Based on deck from Round
 

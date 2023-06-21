@@ -17,7 +17,7 @@ public:
 
 	void clearHand();
 
-	friend std::ostream& operator<<(std::ostream & os, Dealer &D);
+	friend std::wostream& operator<<(std::wostream & wos, Dealer &D);
 
 };
 

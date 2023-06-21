@@ -1,5 +1,5 @@
 #include<iostream>
-#include "Card.h"
+#include<Card.h>
 
 Card::Card()
 {
@@ -17,7 +17,7 @@ Card::Card(const int card)
 	else
 	{
 		suite = card / 13;
-		value = card == 0 ? 0 : card % 13 + 1;
+		value = card == 0 ? 0: card % 13 + 1;
 	}
 }
 
@@ -59,8 +59,8 @@ void Card::setValue(int v) {value = v;}
 
 void Card::setSuite(int s) {suite = s;}
 
-std::ostream& operator<<(std::ostream& os, const Card& c)
+std::wostream& operator<<(std::wostream& os, const Card& c)
 {
-	std::cout << c.suite << ' ' << c.value << '\n';
+	std::wcout << c.suite << ' ' << c.value << '\n';
 	return os;
 }

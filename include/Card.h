@@ -1,7 +1,7 @@
 #ifndef CARD_H
 #define CARD_H
 
-#include<iostream>
+#include<Unicode.h>
 
 class Card
 {
@@ -24,7 +24,7 @@ public:
 
 	void setSuite(int s);
 
-	friend std::ostream& operator<<(std::ostream& os, const Card& c);
+	friend std::wostream& operator<<(std::wostream& os, const Card& c);
 	
 };
 

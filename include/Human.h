@@ -23,7 +23,7 @@ public:
 
 	void clearHand();
 
-	friend std::ostream& operator<<(std::ostream & os, Human &p);
+	friend std::wostream& operator<<(std::wostream & wos, Human &p);
 };
 
 #endif

@@ -2,10 +2,17 @@
 #include<random>
 #include<Game.h>
 
-//std::string suites[] = {"\u2661", "\u2662", "\u2667", "\u2664"}; // for cout, suite: ♥ - 0, ♦ - 1, ♣ - 2, ♠ - 3;
-
 int main()
 {
+
+#ifdef _WIN32
+	_setmode(_fileno(stdout), _O_U16TEXT);
+#endif
+
+#ifndef _WIN32
+	setlocale(LC_ALL, "en_US.utf8");
+#endif
+
 	srand(time(0));
 	Game g;
 	int losses = 0;
@@ -16,21 +23,21 @@ int main()
 			g.playGame();
 
 		losses++;
-		
+
 		char d = '-';
 		short attempts = 0;
 
-		for(; attempts < 10 && d != 'y'; attempts++)
+		for (; attempts < 10 && d != 'y'; attempts++)
 		{
 			rlutil::cls();
-			std::cout << " You lost all your money.. Wanna try again? y/n\n >";
-			
+			std::wcout << " You lost all your money.. Wanna try again? y/n\n >";
+
 			std::cin >> d;
-			if(d == 'n')
+			if (d == 'n')
 				return 0;
 		}
 
-		if(d != 'y')
+		if (d != 'y')
 			return 0;
 
 	}

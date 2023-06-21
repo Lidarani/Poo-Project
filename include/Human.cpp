@@ -27,19 +27,19 @@ void Human::clearHand()
 }
 
 
-std::ostream& operator<<(std::ostream & os, Human& p) // Human sum + Cards
+std::wostream& operator<<(std::wostream & wos, Human& p) // Human sum + Cards
 {
 	if (p.sum > 21) //Player card sum or Busted
 	{
-		std::cout << "Busted!\n";
+		std::wcout << "Busted!\n";
 	}
 	else
-		std::cout << p.sum << '\n';
+		std::wcout << p.sum << '\n';
 
 	for (size_t i = 0; i < p.hand.size(); i++) // top of the cards
-		std::cout << " ___  ";
+		std::wcout << " ___  ";
 
-	std::cout << '\n';
+	std::wcout << '\n';
 
 	for (size_t i = 0; i < p.hand.size(); i++) // first row, |v   | |v   |, v = card number
 	{
@@ -47,33 +47,33 @@ std::ostream& operator<<(std::ostream & os, Human& p) // Human sum + Cards
 		v = p.hand[i].getValue();
 
 		if (v == '~')
-			std::cout << "|10 | ";
+			std::wcout << "|10 | ";
 		else
-			std::cout << "|" << v << "  | ";
+			std::wcout << "|" << v << "  | ";
 	}
 
-	std::cout << '\n';
+	std::wcout << '\n';
 
 
 	for (size_t i = 0; i < p.hand.size(); i++) //2nd row, | s  | |  s |, where s = symbol
 	{
-		char s = p.hand[i].getSuite() + 3;
-		std::cout << "| " << s << " | ";
+		std::wstring s = p.getSymbol(p.hand[i].getSuite());
+		std::wcout << "| " << s << " | ";
 	}
 
-	std::cout << '\n';
+	std::wcout << '\n';
 
 	for (size_t i = 0; i < p.hand.size(); i++) // last row, |___v| |___v|, v = card number
 	{
 		char v;
 		v = p.hand[i].getValue();		
 		if (v == '~')
-			std::cout << "|_10| ";
+			std::wcout << "|_10| ";
 		else
-			std::cout << "|__" << v << "| ";
+			std::wcout << "|__" << v << "| ";
 	}
 
-	std::cout << '\n';
+	std::wcout << '\n';
 
-	return os;
+	return wos;
 }

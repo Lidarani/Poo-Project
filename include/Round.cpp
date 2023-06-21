@@ -64,7 +64,7 @@ bool Round::brokeHuman() {return human->getMoney() == 0;}
 void Round::outCards()
 {
 	rlutil::cls();
-	std::cout << "Dealer: " << *dealer << '\n' << "Player: " << *human;
+	std::wcout << "Dealer: " << *dealer << '\n' << "Player: " << *human;
 }
 
 bool Round::hasBlackjack(Player* currentPlayer) //If the player has Blackjack
@@ -75,7 +75,7 @@ bool Round::hasBlackjack(Player* currentPlayer) //If the player has Blackjack
 		{
 			done = 1;
 
-			std::cout << "\n You have BLACKJACK!!\n";
+			std::wcout << "\n You have BLACKJACK!!\n";
 			rlutil::msleep(3000);
 			return true;
 		}
@@ -85,7 +85,7 @@ bool Round::hasBlackjack(Player* currentPlayer) //If the player has Blackjack
 			dealerPlayer->openCard();
 			outCards();
 
-			std::cout << "\n Dealer has Blackjack! \n You lost!\n";
+			std::wcout << "\n Dealer has Blackjack! \n You lost!\n";
 			rlutil::msleep(3000);
 			return true;
 		}
@@ -104,7 +104,7 @@ bool Round::isBusted(Player* currentPlayer) // If the Player is bust
 		{
 			done = 1;
 			outCards();
-			std::cout << "\n You lost!\n";
+			std::wcout << "\n You lost!\n";
 			rlutil::msleep(3000);
 			return true;
 		}
@@ -112,7 +112,7 @@ bool Round::isBusted(Player* currentPlayer) // If the Player is bust
 		{
 			done = 1;
 			outCards();
-			std::cout << "\n You win! \n";
+			std::wcout << "\n You win! \n";
 			rlutil::msleep(3000);
 			return true;
 		}
@@ -135,7 +135,7 @@ void Round::Turn(Player* currentPlayer)
 			rlutil::cls();
 			outCards();
 
-			std::cout << "\n (h)it or (s)tand \n> ";
+			std::wcout << "\n (h)it or (s)tand \n> ";
 			std::cin >> d;
 		}
 
@@ -200,7 +200,7 @@ void Round::playRound(const int bet)
 	if (human->getSum() > dealer->getSum())
 	{
 		outCards();
-		std::cout << "You win " << bet << "!\n";
+		std::wcout << "You win " << bet << "!\n";
 		human->addMoney(bet);
 		rlutil::msleep(3000);
 	}
@@ -208,14 +208,14 @@ void Round::playRound(const int bet)
 	else if (human->getSum() == dealer->getSum())
 	{
 		outCards();
-		std::cout << "It's a tie!\n";
+		std::wcout << "It's a tie!\n";
 		rlutil::msleep(3000);
 	}
 
 	else
 	{
 		outCards();
-		std::cout << "You lost " << bet << " ...\n";
+		std::wcout << "You lost " << bet << " ...\n";
 		human->subMoney(bet);
 		rlutil::msleep(3000);
 	}
