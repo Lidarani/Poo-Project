@@ -9,6 +9,8 @@ class Human : public Player
 
 public:
 
+	void clearHand() override;
+
 	Human();
 
 	Human(const Human& other);
@@ -20,8 +22,6 @@ public:
 	void subMoney(const int x);
 
 	void resetMoney();
-
-	void clearHand() override;
 
 	friend std::wostream& operator<<(std::wostream & wos, Human &p);
 };

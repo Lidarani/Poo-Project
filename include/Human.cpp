@@ -1,5 +1,12 @@
 #include<Human.h>
 
+void Human::clearHand()
+{
+	hand.clear();
+	sum = 0;
+	ace = false;
+}
+
 Human::Human() : Player()
 {
 	resetMoney();
@@ -18,14 +25,6 @@ void Human::addMoney(const int x) {money += x;}
 void Human::subMoney(const int x) {money -= x;}
 
 void Human::resetMoney(){money = 5000;}
-
-void Human::clearHand()
-{
-	hand.clear();
-	sum = 0;
-	ace = false;
-}
-
 
 std::wostream& operator<<(std::wostream & wos, Human& p) // Human sum + Cards
 {
