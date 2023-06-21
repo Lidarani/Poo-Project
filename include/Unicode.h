@@ -14,6 +14,6 @@
 #include <clocale>
 #endif
 
-std::wstring convertWString(const std::string narrowString);
+std::wstring convertWString(const std::string &narrowString);
 
 #endif

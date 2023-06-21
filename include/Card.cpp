@@ -55,10 +55,6 @@ char Card::getValue()
 
 int Card::getSuite() {return suite;}
 
-void Card::setValue(int v) {value = v;}
-
-void Card::setSuite(int s) {suite = s;}
-
 std::wostream& operator<<(std::wostream& os, const Card& c)
 {
 	std::wcout << c.suite << ' ' << c.value << '\n';

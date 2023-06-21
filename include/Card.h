@@ -20,10 +20,6 @@ public:
 
 	int getSuite();
 
-	void setValue(int v);
-
-	void setSuite(int s);
-
 	friend std::wostream& operator<<(std::wostream& os, const Card& c);
 	
 };

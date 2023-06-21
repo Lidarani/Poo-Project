@@ -21,7 +21,7 @@ public:
 
 	void resetMoney();
 
-	void clearHand();
+	void clearHand() override;
 
 	friend std::wostream& operator<<(std::wostream & wos, Human &p);
 };
