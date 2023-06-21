@@ -3,8 +3,10 @@
 
 Dealer::Dealer() : Player()
 {
-	hiddenCard = true;
-	clearHand();
+	hiddenCard = true; // Dealer only
+	hand.clear();
+	sum = 0;
+	ace = false;
 }
 
 Dealer::Dealer(const Dealer& other) : Player(other), hiddenCard(other.hiddenCard)
@@ -32,7 +34,8 @@ std::wostream& operator<<(std::wostream & wos, Dealer &d)
 
 	if (d.hiddenCard)
 	{
-		char v = d.hand[1].getValue(), s = d.hand[1].getSuite() + 3;
+		char v = d.hand[1].getValue();
+		std::wstring s = d.getSymbol(d.hand[1].getSuite());
 		std::string strUp = "", strDown = "";
 
 		// formam prin v strUp - numarul de sus pentru a 2-a carte
