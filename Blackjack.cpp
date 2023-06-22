@@ -6,7 +6,6 @@ int main()
 {
 
 #ifdef _WIN32
-	#include<fcntl.h>
 	_setmode(_fileno(stdout), _O_U16TEXT);
 #endif
 

@@ -7,6 +7,7 @@
 #include <locale>
 
 #ifdef _WIN32
+#include<io.h>
 #include <fcntl.h>
 #endif
 
